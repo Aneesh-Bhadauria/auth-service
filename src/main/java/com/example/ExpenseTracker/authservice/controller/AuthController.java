@@ -30,7 +30,7 @@ public class AuthController
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    @PostMapping("auth/v1/signup")
+    @PostMapping("/auth/v1/signup")
     public ResponseEntity<?> SignUp(@RequestBody UserInfoDto userInfoDto){
         try{
             Boolean isSignedUp = userDetailsService.signupUser(userInfoDto);
@@ -45,6 +45,11 @@ public class AuthController
             ex.printStackTrace();
             return new ResponseEntity<>("Exception in User Service", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<Boolean> checkHealth(){
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
 }
